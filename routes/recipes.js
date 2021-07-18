@@ -28,13 +28,14 @@ router.get('/shopping-list', (req, res) => {
 });
 
 router.get('/test', (req, res) => {
-	let string = 'aB2cD3ef1';
+	let string = 'aB2cD3eF1';
+	// let string = req.query.string;
 	// console.log(string.split(''));
 	let chars = string.split('');
 	let finalString = '';
 	let temp = '';
 	for (let i = 0; i < chars.length; i++) {
-		if (i < string.length - 1 && chars[i] !== '*' && chars[i + 1] !== '*') {
+		if (i < chars.length - 1 && chars[i] !== '*' && chars[i + 1] !== '*' && isNaN(chars[i]) && isNaN(chars[i + 1])) {
 			if (chars[i] === chars[i].toLowerCase() && chars[i + 1] === chars[i + 1].toUpperCase()) {
 				temp = chars[i];
 				chars[i] = chars[i + 1];
@@ -45,9 +46,8 @@ router.get('/test', (req, res) => {
 		if (parseInt(chars[i]) >= 1 && parseInt(chars[i]) <= 9) {
 			temp = chars[i];
 			chars[i] = '0';
-			// chars.splice(0, 0, temp);
 			chars.unshift(temp);
-			// i++;
+			i++;
 		}
 	}
 	// reverse
